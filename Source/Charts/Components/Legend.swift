@@ -283,7 +283,8 @@ open class Legend: ComponentBase
                 maxWidth = max(maxWidth, width)
             }
             
-            neededWidth = maxWidth
+            let legendMaxWidth: CGFloat = viewPortHandler.chartWidth * maxSizePercent
+            neededWidth = min(legendMaxWidth, maxWidth)
             neededHeight = maxHeight
             
         case .horizontal:
