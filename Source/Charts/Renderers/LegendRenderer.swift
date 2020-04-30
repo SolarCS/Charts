@@ -574,6 +574,26 @@ open class LegendRenderer: Renderer
     /// Draws the provided label at the given position.
     @objc open func drawLabel(context: CGContext, x: CGFloat, y: CGFloat, label: String, font: NSUIFont, textColor: NSUIColor)
     {
-        ChartUtils.drawText(context: context, text: label, point: CGPoint(x: x, y: y), align: .left, attributes: [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: textColor])
+        let paragrahStyle = NSMutableParagraphStyle()
+        paragrahStyle.lineBreakMode = .byTruncatingMiddle
+        
+        let rect = CGRect(
+            x: 0,
+            y: 0,
+            width: viewPortHandler.chartWidth - (legend?.xOffset ?? 0),
+            height: viewPortHandler.chartHeight
+        )
+        
+        ChartUtils.drawText(
+            context: context,
+            contentRect: rect,
+            text: label,
+            point: CGPoint(x: x, y: y),
+            align: .left,
+            attributes: [
+                NSAttributedString.Key.font: font,
+                NSAttributedString.Key.foregroundColor: textColor,
+                NSAttributedString.Key.paragraphStyle: paragrahStyle]
+        )
     }
 }
